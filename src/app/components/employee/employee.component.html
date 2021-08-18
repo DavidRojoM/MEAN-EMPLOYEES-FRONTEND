@@ -2,37 +2,41 @@
   <div class="col-md-4">
     <div class="card">
       <div class="card-body">
-        <form action="">
+        <form #employeeForm="ngForm" (ngSubmit)="addEmployee(employeeForm)">
           <div class="form-group mb-3">
             <input
               type="text"
-              name=""
+              name="name"
               class="form-control"
               placeholder="Enter your name"
+              [(ngModel)]="employeeService.selectedEmployee.name"
             />
           </div>
           <div class="form-group mb-3">
             <input
               type="text"
-              name=""
+              name="position"
               class="form-control"
               placeholder="Enter your position"
+              [(ngModel)]="employeeService.selectedEmployee.position"
             />
           </div>
           <div class="form-group mb-3">
             <input
               type="text"
-              name=""
+              name="office"
               class="form-control"
               placeholder="Enter your office"
+              [(ngModel)]="employeeService.selectedEmployee.office"
             />
           </div>
           <div class="form-group mb-3">
             <input
               type="number"
-              name=""
+              name="salary"
               class="form-control"
               placeholder="Enter your salary"
+              [(ngModel)]="employeeService.selectedEmployee.salary"
             />
           </div>
           <button class="btn btn-secondary me-2">Clean</button>
@@ -62,7 +66,10 @@
             <button class="btn btn-secondary btn-sm">
               <i class="material-icons">edit</i>
             </button>
-            <button class="btn btn-danger btn-sm ms-2">
+            <button
+              class="btn btn-danger btn-sm ms-2"
+              (click)="deleteEmployee(employee._id)"
+            >
               <i class="material-icons">delete</i>
             </button>
           </td>

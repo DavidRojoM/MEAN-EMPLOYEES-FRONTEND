@@ -8,11 +8,25 @@ import { Employee } from '../models/employee';
 export class EmployeeService {
   URL_API = 'http://localhost:3000/api/employees';
 
+  selectedEmployee: Employee = {
+    name: '',
+    office: '',
+    position: '',
+    salary: 0,
+  };
   employees: Employee[] | undefined;
 
   constructor(private http: HttpClient) {}
 
   getEmployees() {
     return this.http.get<Employee[]>(this.URL_API);
+  }
+
+  createEmployee(employee: Employee) {
+    return this.http.post(this.URL_API, employee);
+  }
+
+  deleteEmployee(_id: any) {
+    return this.http.delete(`${this.URL_API}/${_id}`);
   }
 }
