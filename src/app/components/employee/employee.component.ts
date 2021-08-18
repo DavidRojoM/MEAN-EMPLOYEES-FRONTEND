@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../../services/employee.service';
 import { NgForm } from '@angular/forms';
+import { Employee } from '../../models/employee';
 
 @Component({
   selector: 'app-employee',
@@ -22,14 +23,25 @@ export class EmployeeComponent implements OnInit {
   }
 
   addEmployee(form: NgForm) {
-    this.employeeService.createEmployee(form.value).subscribe(
-      (res) => {
-        console.log(res);
-        this.getEmployees();
-        form.reset();
-      },
-      (err) => console.error(err)
-    );
+    if (form.value._id) {
+      this.employeeService.updateEmployee(form.value).subscribe(
+        (res) => {
+          console.log(res);
+          this.getEmployees();
+          form.reset();
+        },
+        (err) => console.log(err)
+      );
+    } else {
+      this.employeeService.createEmployee(form.value).subscribe(
+        (res) => {
+          console.log(res);
+          this.getEmployees();
+          form.reset();
+        },
+        (err) => console.error(err)
+      );
+    }
   }
 
   deleteEmployee(_id: any) {
@@ -43,5 +55,13 @@ export class EmployeeComponent implements OnInit {
         (err) => console.error(err)
       );
     }
+  }
+
+  updateEmployee(employee: Employee) {
+    this.employeeService.selectedEmployee = employee;
+  }
+
+  resetForm(employeeForm: NgForm) {
+    employeeForm.reset();
   }
 }
